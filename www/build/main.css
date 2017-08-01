@@ -35959,6 +35959,36 @@ ion-navbar.toolbar {
   }
 }
 
+page-home .btn-facebook {
+  color: #FFF !important;
+  background-color: #3b5998 !important;
+}
+
+page-home .btn-google-plus {
+  color: #FFF !important;
+  background-color: #dd4b39 !important;
+}
+
+page-home .btn-youtube {
+  color: #FFF !important;
+  background-color: #ff4b39 !important;
+}
+
+page-home .btn-twitter {
+  color: #FFF !important;
+  background-color: #55acee !important;
+}
+
+page-home .btn-linkedin {
+  color: #FFF !important;
+  background-color: #007bb6 !important;
+}
+
+page-home .btn-mail {
+  color: #FFF !important;
+  background-color: #512da8 !important;
+}
+
 page-menu ion-card {
   position: relative;
   text-align: center;
