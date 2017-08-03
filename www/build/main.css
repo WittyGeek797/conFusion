@@ -35959,6 +35959,10 @@ ion-navbar.toolbar {
   }
 }
 
+.background-pale {
+  background-color: #D1C4E9;
+}
+
 page-home .btn-facebook {
   color: #FFF !important;
   background-color: #3b5998 !important;

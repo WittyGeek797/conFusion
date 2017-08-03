@@ -1,8 +1,9 @@
 import { Component,Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 import { Dish } from '../../shared/dish'
 import { Comment } from '../../shared/comment'
 import { FavoriteProvider } from '../../providers/favorite/favorite'
+import { CommentPage } from '../../pages/comment/comment'
 
 /**
  * Generated class for the DishdetailPage page.
@@ -25,8 +26,10 @@ export class DishdetailPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
     @Inject('BaseURL') private BaseURL,
-  private favoriteService: FavoriteProvider,
-  private toastCtrl: ToastController) {
+    private favoriteService: FavoriteProvider,
+    private toastCtrl: ToastController,
+    private actionCtrl: ActionSheetController,
+    private modalCtrl: ModalController) {
       this.dish = navParams.get('dish');
       this.favoriteService.isFavorite(this.dish.id)
       this.numcomments = this.dish.comments.length;
@@ -47,6 +50,34 @@ export class DishdetailPage {
       position: 'middle',
       duration: 3000
     }).present();
+  }
+
+  openActions(){
+    let modal = this.modalCtrl.create(CommentPage,{ dish: this.dish })
+    let actionSheet = this.actionCtrl.create({
+      title:'Select Actions',
+      buttons:[
+        {
+          text:'Add to Favorites',
+          handler: () => this.addToFavorites()
+        },
+        {
+          text:'Add Comment',
+          handler: () => {
+            modal.present();
+          }
+        },
+        {
+          text:'Cancel',
+          role:'cancel',
+          handler: () => {
+            console.log('Cancelled the Action!');
+          }
+        }
+      ]
+    });
+    modal.onDidDismiss(dish => this.dish = dish)
+    actionSheet.present();
   }
 
 }
