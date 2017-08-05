@@ -1,5 +1,6 @@
 import { Component,Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { Dish } from '../../shared/dish'
 import { Comment } from '../../shared/comment'
 import { FavoriteProvider } from '../../providers/favorite/favorite'
@@ -29,9 +30,10 @@ export class DishdetailPage {
     private favoriteService: FavoriteProvider,
     private toastCtrl: ToastController,
     private actionCtrl: ActionSheetController,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private storage: Storage) {
       this.dish = navParams.get('dish');
-      this.favoriteService.isFavorite(this.dish.id)
+      this.favorite = this.favoriteService.isFavorite(this.dish.id)
       this.numcomments = this.dish.comments.length;
       let total = 0;
       this.dish.comments.forEach(comment => total+= comment.rating)
@@ -50,6 +52,9 @@ export class DishdetailPage {
       position: 'middle',
       duration: 3000
     }).present();
+    this.favoriteService.getFavorites()
+      .subscribe(favorites => this.storage.set('favorites',favorites),
+        errMess => console.log('Could not save favorites for future!'))
   }
 
   openActions(){
